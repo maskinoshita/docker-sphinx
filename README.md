@@ -86,5 +86,4 @@ When you fork this project, change the image tag `hnakamur/sphinx` to
 a docker image, and then replace `hnakamur/sphinx` in `sphinx-run.sh`
 and `sphinx-livehtml.sh` with that tag.
 
-
 Thank you.
