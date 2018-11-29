@@ -2,72 +2,162 @@
 
 ## Set up
 
-Clone this project to some directory. In the following example, I clone it to
-my home directory.
+Pull the docker image.
 
 ```
-cd $HOME
-git clone https://github.com/hnakamur/docker-sphinx
+docker pull hnakamur/sphinx
 ```
 
-Then add `$HOME/docker-sphinx/bin` to your `PATH` environment variable.
+Open a terminal on Linux or macOS, or a command prompt on Windows, and then change directory to the top directory (which is the parent directory of `source` and `build`) of your document project.
+
+On Windows, you also need [hnakamur/docker-windows-volume-watcher: A command to notify file changes on Windows to docker containers](https://github.com/hnakamur/docker-windows-volume-watcher). Download `docker-windows-volume-watcher.exe` from [Releases page](https://github.com/hnakamur/docker-windows-volume-watcher/releases).
 
 ## Quickstart
+
 To start `hnakamur/sphinx`, You can use `my-sphinx-quickstart` (custom `sphinx-quickstart`)
 
 http://docs.readthedocs.io/en/latest/getting_started.html
 
+### Linux
+
+On Linux, you need to pass uid and gid to mount the document directory
+
 ```
-sphinx-run.sh my-sphinx-quickstart
+docker run --rm -it -v "$PWD:/documents" -e USE_GOSU=1 -e LOCAL_UID=$(id -u $USER) -e LOCAL_GID=$(id -g $USER)" hnakamur/sphinx my-sphinx-quickstart
 ```
 
 ```
-sphinx-run.sh my-sphinx-quickstart -q -p "YourProjectName" -a "John Doe <john.doe@example.com>" -r 1.0
+docker run --rm -it -v "$PWD:/documents" -e USE_GOSU=1 -e LOCAL_UID=$(id -u $USER) -e LOCAL_GID=$(id -g $USER)" hnakamur/sphinx my-sphinx-quickstart -p "YourProjectName" -a "John Doe <john.doe@example.com>" -r 1.0
+```
+
+### macOS
+
+On macOS, you don't need to pass uid and gid.
+
+```
+docker run --rm -it -v "$PWD:/documents" hnakamur/sphinx my-sphinx-quickstart
+```
+
+```
+docker run --rm -it -v "$PWD:/documents" hnakamur/sphinx my-sphinx-quickstart -p "YourProjectName" -a "John Doe <john.doe@example.com>" -r 1.0
+```
+
+### Windows
+
+```
+docker run --rm -it -v "%cd%:/documents" hnakamur/sphinx my-sphinx-quickstart
+```
+
+```
+docker run --rm -it -v "%cd%:/documents" hnakamur/sphinx my-sphinx-quickstart -p "YourProjectName" -a "John Doe <john.doe@example.com>" -r 1.0
 ```
 
 ## Build your documents
 
-The default `CMD` of `hnakamur/docker-sphinx` is `make html`.
+The default `CMD` of `hnakamur/sphinx` is `make html`.
 
-Go to the document base directory (which is the parent directory of `source` and `build`)
-and then run `sphinx-run.sh`.
-
-```
-cd ${base_directory}
-sphinx-run.sh
-```
-
-Or you can set `BASE_DIR` environment variable and run `sphinx-run.sh`.
+### Linux
 
 ```
-BASE_DIR=${base_directory} sphinx-run.sh
+docker run --rm -it -v "$PWD:/documents" -e USE_GOSU=1 -e LOCAL_UID=$(id -u $USER) -e LOCAL_GID=$(id -g $USER)" hnakamur/sphinx
 ```
 
 You can run your favorite build commands.
 
 ```
 # make html
-sphinx-run.sh make html
+docker run --rm -it -v "$PWD:/documents" -e USE_GOSU=1 -e LOCAL_UID=$(id -u $USER) -e LOCAL_GID=$(id -g $USER)" hnakamur/sphinx make html
 
 # sphinx-build
-sphinx-run.sh sphinx-build -b html source build
+docker run --rm -it -v "$PWD:/documents" -e USE_GOSU=1 -e LOCAL_UID=$(id -u $USER) -e LOCAL_GID=$(id -g $USER)" hnakamur/sphinx sphinx-build -b html source build
+```
+
+### macOS
+
+```
+docker run --rm -it -v "$PWD:/documents" hnakamur/sphinx
+```
+
+You can run your favorite build commands.
+
+```
+# make html
+docker run --rm -it -v "$PWD:/documents" hnakamur/sphinx make html
+
+# sphinx-build
+docker run --rm -it -v "$PWD:/documents" hnakamur/sphinx sphinx-build -b html source build
+```
+
+### Windows
+
+```
+docker run --rm -it -v "%cd%:/documents" hnakamur/sphinx
+```
+
+You can run your favorite build commands.
+
+```
+# make html
+docker run --rm -it -v "%cd%:/documents" hnakamur/sphinx make html
+
+# sphinx-build
+docker run --rm -it -v "%cd%:/documents" hnakamur/sphinx sphinx-build -b html source build
 ```
 
 ## Autobuild
 
 This dockerfile include [sphinx-autobuild](https://github.com/GaretJax/sphinx-autobuild)
 
-You can start autobuild with running the following command.
+### Linux
 
 ```
-sphinx-livehtml.sh
+docker run --rm -it -v "$PWD:/documents" -p 8000:8000 -e USE_GOSU=1 -e LOCAL_UID=$(id -u $USER) -e LOCAL_GID=$(id -g $USER)" hnakamur/sphinx sphinx-autobuild source build/html -H 0.0.0.0
 ```
 
 You can see the output at http://127.0.0.1:8000
-If you would like to change the port and the listen address, run `sphinx-livehtml.sh` as below:
+
+If you would like to change the port and the listen address, for example 8888 and 127.0.0.1
 
 ```
-PORT=8888 LISTEN_ADDR=127.0.0.1 sphinx-livehtml.sh
+docker run --rm -it -v "$PWD:/documents" -p 8888:8000 -e USE_GOSU=1 -e LOCAL_UID=$(id -u $USER) -e LOCAL_GID=$(id -g $USER)" hnakamur/sphinx sphinx-autobuild source build/html -H 127.0.0.1
+```
+
+When you are done, press Control-C to stop autobuild and go back to the prompt.
+
+### macOS
+
+```
+docker run --rm -it -v "$PWD:/documents" -p 8000:8000 hnakamur/sphinx sphinx-autobuild source build/html -H 0.0.0.0
+```
+
+You can see the output at http://127.0.0.1:8000
+
+If you would like to change the port and the listen address, for example 8888 and 127.0.0.1
+
+```
+docker run --rm -it -v "$PWD:/documents" -p 8888:8000 hnakamur/sphinx sphinx-autobuild source build/html -H 127.0.0.1
+```
+
+When you are done, press Control-C to stop autobuild and go back to the prompt.
+
+### Windows
+
+```
+docker run --rm -it -v "%cd%:/documents" -p 8000:8000 hnakamur/sphinx sphinx-autobuild source build/html -H 0.0.0.0
+```
+
+You can see the output at http://127.0.0.1:8000
+
+If you would like to change the port and the listen address, for example 8888 and 127.0.0.1
+
+```
+docker run --rm -it -v "%cd%:/documents" -p 8888:8000 hnakamur/sphinx sphinx-autobuild source build/html -H 127.0.0.1
+```
+
+You also need to run `docker-windows-volume-watcher.exe` on another command prompt.
+
+```
+docker-windows-volume-watcher.exe -ignoredir git;build
 ```
 
 When you are done, press Control-C to stop autobuild and go back to the prompt.
@@ -76,14 +166,12 @@ When you are done, press Control-C to stop autobuild and go back to the prompt.
 ## Build dockerfile
 
 ```
-docker build -t hnakamur/sphinx ${directory_this_project}
+docker build -t hnakamur/sphinx ${work_directory_of_this_project}
 ```
 
 ## Fork this project
 
 When you fork this project, change the image tag `hnakamur/sphinx` to
-`${your_docker_ID}/${your_favorite_container_name}` when you build
-a docker image, and then replace `hnakamur/sphinx` in `sphinx-run.sh`
-and `sphinx-livehtml.sh` with that tag.
+`${your_docker_ID}/${your_favorite_container_name}`.
 
 Thank you.
