@@ -9,7 +9,7 @@ RUN apk add --update --no-cache \
         freetype-dev \
         tzdata \
     && pip install \
-        sphinx \
+        sphinx==2.0b1 \
         sphinx-autobuild \
         sphinxcontrib-blockdiag \
         sphinxcontrib-seqdiag \
