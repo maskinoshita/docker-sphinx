@@ -22,7 +22,7 @@ RUN apk add --update --no-cache \
 
 FROM python:3-alpine
 
-ENV PLANTUML_VERSION 1.2018.5
+ENV PLANTUML_VERSION 1.2019.1
 
 COPY --from=builder /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
 COPY --from=builder /usr/local/bin/ /usr/local/bin/
