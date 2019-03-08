@@ -18,9 +18,12 @@ RUN apk add --update --no-cache \
         sphinxcontrib-plantuml \
         sphinx-copybutton \
         git+https://github.com/hnakamur/japanese-text-join@call_declare_namescape \
-        solar-theme
+        sphinx_rtd_theme \
+        m2r \
+        recommonmark
 
-FROM python:3-alpine
+FROM paperist/alpine-texlive-ja
+#FROM python:3-alpine
 
 ENV PLANTUML_VERSION 1.2019.1
 
@@ -55,7 +58,7 @@ COPY entrypoint.sh /usr/local/bin/entrypoint.sh
 RUN chmod +x /usr/local/bin/entrypoint.sh
 ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
 
-COPY files files
+COPY files /files
 COPY my-sphinx-quickstart /usr/local/bin/
 
 RUN mkdir documents
