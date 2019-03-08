@@ -171,6 +171,9 @@ latex_elements = {
     # 'papersize': 'letterpaper',
     'papersize': 'a4paper',
 
+    # The title
+    'maketitle': '{{ project }}',
+
     # The font size ('10pt', '11pt' or '12pt').
     #
     # 'pointsize': '10pt',
@@ -180,7 +183,6 @@ latex_elements = {
     #
     # 'preamble': '',
     'preamble': '''
-\\usepackage[dvipdfmx]{graphicx}
 \\renewcommand{\\baselinestretch}{1.0}
 \\pagestyle{plain}
 \\thispagestyle{plain}
