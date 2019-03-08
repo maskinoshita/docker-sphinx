@@ -5,12 +5,11 @@ sphinx-quickstart \
   --sep \
   --dot=${dot} \
   --language=ja \
-  --suffix=.rst \
   --master=index \
   --ext-intersphinx \
   --ext-todo \
   --ext-ifconfig \
-  --extensions=sphinx.ext.githubpages,sphinxcontrib.japanese_text_join,sphinx_copybutton \
+  --extensions=sphinx.ext.githubpages,sphinxcontrib.japanese_text_join,sphinx_copybutton,m2r \
   --use-make-mode \
   --makefile \
   --batchfile \
@@ -25,6 +24,3 @@ sphinx-quickstart \
   -d use_plantuml=True \
   -d plantuml_output_format=svg \
   "$@"
-
-cp -r /files/css ./source/${dot}static/css
-cp -r /files/js ./source/${dot}static/js
