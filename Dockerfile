@@ -23,7 +23,6 @@ RUN apk add --update --no-cache \
         recommonmark
 
 FROM paperist/alpine-texlive-ja
-#FROM python:3-alpine
 
 ENV PLANTUML_VERSION 1.2019.1
 
