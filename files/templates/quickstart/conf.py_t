@@ -171,13 +171,15 @@ latex_elements = {
     # 'papersize': 'letterpaper',
     'papersize': 'a4paper',
 
-    # The title
-    'maketitle': '{{ project }}',
-
     # The font size ('10pt', '11pt' or '12pt').
     #
     # 'pointsize': '10pt',
     'pointsize': '11pt',
+
+    # Extra document class options ('oneside', 'twoside' etc.)
+    #
+    # 'extraclassoptions': 'oneside,openany',
+    'extraclassoptions': 'oneside,openany',
 
     # Additional stuff for the LaTeX preamble.
     #
@@ -206,8 +208,8 @@ latex_elements = {
 }
 
 latex_docclass = {
-    'howto': 'jsarticle',
-    'manual': 'jsarticle'
+    'howto': 'jsbook',
+    'manual': 'jsbook'
 }
 
 numfig = True
