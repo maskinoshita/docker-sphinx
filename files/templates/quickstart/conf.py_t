@@ -208,8 +208,8 @@ latex_elements = {
 }
 
 latex_docclass = {
-    'howto': 'jsbook',
-    'manual': 'jsbook'
+    'howto': 'jsarticle',
+    'manual': 'jsreport'
 }
 
 numfig = True
