@@ -20,7 +20,8 @@ RUN apk add --update --no-cache \
         git+https://github.com/hnakamur/japanese-text-join@call_declare_namescape \
         sphinx_rtd_theme \
         m2r \
-        recommonmark
+        recommonmark \
+        markdown
 
 FROM paperist/alpine-texlive-ja
 
