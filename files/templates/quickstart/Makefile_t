@@ -90,6 +90,9 @@ info:
 gettext:
 	$(SPHINXBUILD) -b gettext $(I18NSPHINXOPTS) $(BUILDDIR)/locale
 
+livehtml:
+	sphinx-autobuild -b html $(ALLSPHINXOPTS) $(BUILDDIR)/html
+
 # Catch-all target: route all unknown targets to Sphinx
 .PHONY: Makefile
 %: Makefile
