@@ -26,6 +26,9 @@ sys.path.insert(0, u'{{ module_path }}')
 {% endif -%}
 {% endif %}
 
+import recommonmark
+from recommonmark.transform import AutoStructify
+
 # -- Project information -----------------------------------------------------
 
 project = u'{{ project }}'
